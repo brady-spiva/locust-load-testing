@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: locust-logs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: locust-load-test
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: locust-logs
+          persistentVolumeClaim:
+            claimName: locust-logs-pvc
+      containers:
+        - name: locust
+          image: locustio/locust
+          args: ["-f", "/mnt/locust/locustfile.py", "--host=https://your-app-url"]
+          volumeMounts:
+            - name: locust-logs
+              mountPath: /mnt/logs
+          command: ["/bin/sh", "-c"]
+          args:
+            - locust -f /mnt/locust/locustfile.py --host=https://your-app-url | tee -a /mnt/logs/locust.log
