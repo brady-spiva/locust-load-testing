@@ -7,7 +7,7 @@ class TinesUser(HttpUser):
     def on_start(self):
         """Executed when a simulated user starts."""
         self.client.headers.update({
-            'Authorization': 'Bearer tRsyTVro6XQNqyx9YxVu',
+            'Authorization': 'Bearer <token>',
             'Content-Type': 'application/json'
         })
         self.team_id = ""
