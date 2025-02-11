@@ -1,3 +1,4 @@
-# load testing Tines workshop deployments on Kubernetes
+# locust-load-testing
+### load testing Tines workshop deployments on Kubernetes
 
-### TODO: complete the readme!# locust-load-testing
+### TODO: complete the readme!
